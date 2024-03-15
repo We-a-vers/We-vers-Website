@@ -7,6 +7,9 @@ export default {
         desktop: '1440px',
         mobile: '360px',
       },
+      colors: {
+        navbarWords: "#697077"
+      }
     },
   },
   plugins: [],
