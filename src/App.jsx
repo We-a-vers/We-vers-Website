@@ -6,14 +6,38 @@ function App() {
     <div>
       <Navbar />
       <div id="dummy">
-        <ol>
-          <li id="home">Home</li>
-          <li id="projects">Projects</li>
-          <li id="services">Services</li>
-          <li id="questions">FAQs</li>
-          <li id="team">Our Team</li>
-          <li id="contact">Contact Us</li>
-        </ol>
+        <ul className="flex flex-col">
+          <li className="flex justify-center align-center h-[700px]" id="home">
+            Home
+          </li>
+          <li
+            className="flex justify-center align-center h-[700px]"
+            id="projects"
+          >
+            Projects
+          </li>
+          <li
+            className="flex justify-center align-center h-[700px]"
+            id="services"
+          >
+            Services
+          </li>
+          <li
+            className="flex justify-center align-center h-[700px]"
+            id="questions"
+          >
+            FAQs
+          </li>
+          <li className="flex justify-center align-center h-[700px]" id="team">
+            Our Team
+          </li>
+          <li
+            className="flex justify-center align-center h-[700px]"
+            id="contact"
+          >
+            Contact Us
+          </li>
+        </ul>
       </div>
     </div>
   );
