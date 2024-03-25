@@ -2,7 +2,15 @@
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        desktop: '1440px',
+        mobile: '360px',
+      },
+      colors: {
+        navbarWords: "#697077"
+      }
+    },
   },
   plugins: [],
 };
