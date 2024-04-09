@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { IoClose } from 'react-icons/io5';
 import { useState, useEffect } from 'react';
 import useScreenSize from './hooks/useScreenSize';

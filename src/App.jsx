@@ -1,5 +1,6 @@
 import Navbar from './Components/navbar';
 import LandingPage from './pages/Landing/landing_page';
+import Footer from './Components/footer';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
       <section id = 'home'><LandingPage/></section>
       <section id = 'home'><LandingPage/></section>
       <section id = 'home'><LandingPage/></section> */}
+      <Footer />
     </div>
   );
 }
