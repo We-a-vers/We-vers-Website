@@ -54,7 +54,7 @@ function Navbar() {
       {!isOpen ? (
         <nav className="py-12 border-2">
           {expand ? (
-            <ul className="flex flex-row text-xl font-bold font-['Inter'] text-navbarWords justify-evenly items-center">
+            <ul className="flex flex-row text-xl font-bold font-['Inter'] text-navWords justify-evenly items-center">
               {navItems.map((item) => (
                 <NavItem key={item.href} {...item} setIsOpen={setIsOpen} />
               ))}
