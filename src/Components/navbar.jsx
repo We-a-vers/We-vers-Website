@@ -1,121 +1,98 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { IoClose } from 'react-icons/io5';
 import { useState, useEffect } from 'react';
 import useScreenSize from './hooks/useScreenSize';
+import { useScroll, motion, useMotionValueEvent } from 'framer-motion';
 import hamburger from '../assets/Navbar/Icon.svg';
 
 function Navbar() {
-  // Set variables used to evaluate state change
-  // Default to expanded; This means page assumes desktop view
-  const [shouldExpand, setExpand] = useState(true);
+  const [expand, setExpand] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const screenSize = useScreenSize();
+  const [hidden, setHidden] = useState(false);
+  const { scrollY } = useScroll();
 
-  // useEffect detects when screenSize is less than phone view to make hamburger
-  useEffect(() => {
-    if (screenSize.width < 360) {
-      setExpand(false);
+  useMotionValueEvent(scrollY, 'change', (latestScrollY) => {
+    const previous = scrollY.getPrevious();
+    if (latestScrollY > previous && latestScrollY > 150) {
+      setHidden(true);
     } else {
-      setExpand(true);
+      setHidden(false);
     }
+  });
+
+  useEffect(() => {
+    setExpand(screenSize.width >= 360);
   }, [screenSize]);
 
-  return (
-    <header className="py-[1.625rem]">
-      <nav className="py-5">
-        {shouldExpand ? (
-          <ol className="flex w-full justify-evenly text-xl font-bold font-['Inter'] text-navbarWords leading-tight tracking-wide">
-            <li>
-              <a href="#home">Home</a>
-            </li>
-            <li>
-              <a href="#projects">Projects</a>
-            </li>
-            <li>
-              <a href="#services">Services</a>
-            </li>
-            <li>
-              <a href="#home">Logo</a>
-            </li>
-            <li>
-              <a href="#questions">FAQs</a>
-            </li>
-            <li>
-              <a href="#team">Our Team</a>
-            </li>
-            <li>
-              <a href="#contact">Contact Us</a>
-            </li>
-          </ol>
-        ) : (
-          <div className="flex flex-row justify-between px-[2rem]">
-            <h2>Weavers Logo</h2>
-            {!isOpen && (
-              <button type="button" onClick={() => setIsOpen(true)}>
-                <img src={hamburger} alt="Hamburger" className="justify-end" />
-              </button>
-            )}
-            {isOpen && (
-              <button type="button" onClick={() => setIsOpen(false)}>
-                <IoClose style={{ fontSize: '2em' }} />
-              </button>
-            )}
-          </div>
-        )}
-      </nav>
+  const NavItem = ({ href, title }) => (
+    <li
+      className={`flex justify-center w-full ${isOpen && 'border-t-2 border-solid py-4'}`}
+    >
+      <button type="button" onClick={() => setIsOpen(false)}>
+        <a href={href}>{title}</a>
+      </button>
+    </li>
+  );
 
-      {isOpen && (
-        <ul className="flex flex-col font-normal font-['Inter'] text-lg leading-6">
-          <li className="flex justify-center py-[0.5rem] px-[0.75rem]">
-            <button type="button" onClick={() => setIsOpen(false)}>
-              <a href="#home">Home</a>
+  const navItems = [
+    { href: '#home', title: 'Home' },
+    { href: '#projects', title: 'Projects' },
+    { href: '#services', title: 'Services' },
+    { href: '#questions', title: 'FAQs' },
+    { href: '#team', title: 'Our Team' },
+    { href: '#contact', title: 'Contact Us' },
+  ];
+
+  return (
+    <motion.header
+      className="sticky top-0 bg-white"
+      variants={{ visible: { y: 0 }, hidden: { y: '-100%' } }}
+      animate={hidden ? 'hidden' : 'visible'}
+      transition={{ duration: 0.35, ease: 'easeInOut' }}
+    >
+      {!isOpen ? (
+        <nav className="py-12 border-2">
+          {expand ? (
+            <ul className="flex flex-row text-xl font-bold font-['Inter'] text-navWords justify-evenly items-center">
+              {navItems.map((item) => (
+                <NavItem key={item.href} {...item} setIsOpen={setIsOpen} />
+              ))}
+            </ul>
+          ) : (
+            <div className="flex flex-row justify-between px-[2rem]">
+              <h2>Weavers Logo</h2>
+              <button type="button" onClick={() => setIsOpen(!isOpen)}>
+                {isOpen ? (
+                  <IoClose style={{ fontSize: '2em' }} />
+                ) : (
+                  <img
+                    src={hamburger}
+                    alt="Hamburger"
+                    className="justify-end"
+                  />
+                )}
+              </button>
+            </div>
+          )}
+        </nav>
+      ) : (
+        <nav className="w-full h-dvh z-50 fixed inset-0 bg-gray-700 bg-opacity-80">
+          <ul className="flex flex-col font-normal font-['Inter'] text-lg bg-white rounded-md justify-center items-center">
+            <button
+              type="button"
+              onClick={() => setIsOpen(!isOpen)}
+              className="self-end px-4 p-4"
+            >
+              <IoClose style={{ fontSize: '2em' }} />
             </button>
-          </li>
-          <li className="flex flex-col justify-center py-[0.5rem]">
-            <hr className="solid " />
-          </li>
-          <li className="flex justify-center py-[0.5rem] px-[0.75rem]">
-            <button type="button" onClick={() => setIsOpen(false)}>
-              <a href="#projects">Projects</a>
-            </button>
-          </li>
-          <li className="flex flex-col justify-center py-[0.5rem]">
-            <hr className="solid " />
-          </li>
-          <li className="flex justify-center py-[0.5rem] px-[0.75rem]">
-            <button type="button" onClick={() => setIsOpen(false)}>
-              <a href="#services">Services</a>
-            </button>
-          </li>
-          <li className="flex flex-col justify-center py-[0.5rem]">
-            <hr className="solid " />
-          </li>
-          <li className="flex justify-center py-[0.5rem] px-[0.75rem]">
-            <button type="button" onClick={() => setIsOpen(false)}>
-              <a href="#questions">FAQs</a>
-            </button>
-          </li>
-          <li className="flex flex-col justify-center py-[0.5rem]">
-            <hr className="solid " />
-          </li>
-          <li className="flex justify-center py-[0.5rem] px-[0.75rem]">
-            <button type="button" onClick={() => setIsOpen(false)}>
-              <a href="#team">Our Team</a>
-            </button>
-          </li>
-          <li className="flex flex-col justify-center py-[0.5rem]">
-            <hr className="solid" />
-          </li>
-          <li className="flex justify-center py-[0.5rem] px-[0.75rem]">
-            <button type="button" onClick={() => setIsOpen(false)}>
-              <a href="#contact">Contact Us</a>
-            </button>
-          </li>
-          <li className="flex flex-col justify-center py-[0.5rem]">
-            <hr className="solid" />
-          </li>
-        </ul>
+            {navItems.map((item) => (
+              <NavItem key={item.href} {...item} />
+            ))}
+          </ul>
+        </nav>
       )}
-    </header>
+    </motion.header>
   );
 }
 
