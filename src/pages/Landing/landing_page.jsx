@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LandingPage = () => {
+function LandingPage() {
     const handleClick = () => {
         alert('Button clicked');
       };
