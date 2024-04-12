@@ -22,7 +22,7 @@ function Navbar() {
   });
 
   useEffect(() => {
-    setExpand(screenSize.width >= 360);
+    setExpand(screenSize.width >= 800);
   }, [screenSize]);
 
   const NavItem = ({ href, title }) => (
