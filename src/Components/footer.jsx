@@ -15,7 +15,7 @@ function Footer() {
       <div>
         <a
           href={href}
-          className="font-medium text-sm text-navWords font-['Inter'] tracking-[0.5px] desktop:font-bold desktop:text-lg"
+          className="font-medium text-sm text-navWords font-['Inter'] tracking-[0.5px] tablet:font-bold tablet:text-lg"
         >
           {title}
         </a>
