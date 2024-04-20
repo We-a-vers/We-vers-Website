@@ -1,6 +1,6 @@
-import Navbar from './Components/navbar';
-import LandingPage from './pages/Landing/landing_page';
-import Footer from './Components/footer';
+import Navbar from './Components/navbar.jsx';
+import LandingPage from './pages/Landing/landing_page.jsx';
+import Footer from './Components/footer.jsx';
 
 function App() {
   return (
