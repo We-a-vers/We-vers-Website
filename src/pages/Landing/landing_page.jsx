@@ -4,6 +4,7 @@ function LandingPage() {
     const handleClick = () => {
         alert('Button clicked');
       };
+      
     return (
     <main className="px-10 py-5 tablet:px-20 desktop:px-32 desktop:py-20 min-w-dvh flex justify-center items-center h-full bg-landingBG bg-no-repeat bg-center bg-cover" >
       <section className="px-10 tablet:px-20 desktop:px-32 flex flex-col font-bold font-rubik">

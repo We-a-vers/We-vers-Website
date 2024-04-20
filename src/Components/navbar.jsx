@@ -1,15 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { IoClose } from 'react-icons/io5';
-import { useState, useEffect } from 'react';
+import { React, useState, useEffect } from 'react';
 import { useScroll, motion, useMotionValueEvent } from 'framer-motion';
 import useScreenSize from './hooks/useScreenSize.jsx';
 import hamburger from '../assets/Navbar/Icon.svg';
-
-const [expand, setExpand] = useState(true);
-const [isOpen, setIsOpen] = useState(false);
-const screenSize = useScreenSize();
-const [hidden, setHidden] = useState(false);
-const { scrollY } = useScroll();
 
 const NAVITEMS = [
   { href: '#home', title: 'Home' },
@@ -20,12 +14,13 @@ const NAVITEMS = [
   { href: '#contact', title: 'Contact Us' },
 ];
 
-function NavItem(href, title) {
+function NavItem({ href, title }) {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <li
       className={`flex justify-center w-full ${isOpen && 'border-t-2 border-solid py-4'}`}
     >
-      <button type="button" onClick={() => setIsOpen(false)}>
+      <button type="button" onClick={() => setIsOpen(!isOpen)}>
         <a href={href}>{title}</a>
       </button>
     </li>
@@ -33,6 +28,12 @@ function NavItem(href, title) {
 }
 
 function Navbar() {
+  const [expand, setExpand] = useState(true);
+  const screenSize = useScreenSize();
+  const [hidden, setHidden] = useState(false);
+  const { scrollY } = useScroll();
+  const [isOpen, setIsOpen] = useState(false);
+
   useMotionValueEvent(scrollY, 'change', (latestScrollY) => {
     const previous = scrollY.getPrevious();
     if (latestScrollY > previous && latestScrollY > 150) {

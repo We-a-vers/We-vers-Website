@@ -9,7 +9,7 @@ const FOOT_ITEMS = [
   { href: '#contact', title: 'Contact Us' },
 ];
 
-function FootItem(href, title) {
+function FootItem({ href, title }) {
   return (
     <div>
       <a
