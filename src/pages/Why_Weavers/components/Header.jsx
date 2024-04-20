@@ -18,9 +18,7 @@ function Header() {
 
   return (
     <div className="flex flex-col gap-2 tablet:gap-5">
-      <h1 className="text-sm">
-        Why Weavers
-      </h1>
+      <h1 className="text-sm">Why Weavers</h1>
       <h2 className="text-[28px] tablet:text-[38px] desktop:text-[64px] text-foundation-blue-normal font-medium font-chi-sans">
         {headerInfo.title}
       </h2>
