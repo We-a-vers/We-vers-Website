@@ -1,20 +1,9 @@
 import { useState, useEffect } from 'react';
-import createClient from '../../../client.js';
 
 function Header() {
-  const [headerInfo, setHeaderInfo] = useState({});
+  const [headerInfo] = useState({});
 
-  useEffect(() => {
-    const query = `*[_type == "service"]`;
-
-    createClient
-      .fetch(query)
-      .then((data) => {
-        // Assuming your service documents have a products array
-        setHeaderInfo(data[0].header);
-      })
-      .catch(console.error);
-  }, []);
+  useEffect(() => {});
 
   return (
     <div className="flex flex-col gap-2 tablet:gap-5">
