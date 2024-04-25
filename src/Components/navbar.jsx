@@ -14,19 +14,6 @@ const NAVITEMS = [
   { href: '#contact', title: 'Contact Us' },
 ];
 
-function NavItem({ href, title }) {
-  const [isOpen, setIsOpen] = useState(false);
-  return (
-    <li
-      className={`flex justify-center w-full ${isOpen && 'border-t-2 border-solid py-4'}`}
-    >
-      <button type="button" onClick={() => setIsOpen(!isOpen)}>
-        <a href={href}>{title}</a>
-      </button>
-    </li>
-  );
-}
-
 function Navbar() {
   const [expand, setExpand] = useState(true);
   const screenSize = useScreenSize();
@@ -46,6 +33,18 @@ function Navbar() {
   useEffect(() => {
     setExpand(screenSize.width >= 800);
   }, [screenSize]);
+
+  function NavItem({ href, title }) {
+    return (
+      <li
+        className={`flex justify-center w-full ${!expand && 'border-t-2 border-solid py-4'}`}
+      >
+        <button type="button" onClick={() => setIsOpen(false)}>
+          <a href={href}>{title}</a>
+        </button>
+      </li>
+    );
+  }
 
   return (
     <motion.header
