@@ -14,13 +14,12 @@ const NAVITEMS = [
   { href: '#contact', title: 'Contact Us' },
 ];
 
-function NavItem({ href, title }) {
-  const [isOpen, setIsOpen] = useState(false);
+function NavItem({ href, title, expand, setIsOpen }) {
   return (
     <li
-      className={`flex justify-center w-full ${isOpen && 'border-t-2 border-solid py-4'}`}
+      className={`flex justify-center w-full ${!expand && 'border-t-2 border-solid py-4'}`}
     >
-      <button type="button" onClick={() => setIsOpen(!isOpen)}>
+      <button type="button" onClick={!expand ? () => setIsOpen(false) : null}>
         <a href={href}>{title}</a>
       </button>
     </li>
@@ -59,7 +58,12 @@ function Navbar() {
           {expand ? (
             <ul className="flex flex-row text-xl font-bold font-['Inter'] text-navWords justify-evenly items-center">
               {NAVITEMS.map((item) => (
-                <NavItem key={item.href} {...item} setIsOpen={setIsOpen} />
+                <NavItem
+                  key={item.href}
+                  {...item}
+                  expand={expand}
+                  setIsOpen={setIsOpen}
+                />
               ))}
             </ul>
           ) : (
@@ -91,7 +95,12 @@ function Navbar() {
               <IoClose style={{ fontSize: '2em' }} />
             </button>
             {NAVITEMS.map((item) => (
-              <NavItem key={item.href} {...item} />
+              <NavItem
+                key={item.href}
+                {...item}
+                expand={expand}
+                setIsOpen={setIsOpen}
+              />
             ))}
           </ul>
         </nav>
